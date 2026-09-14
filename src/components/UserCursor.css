@@ -1,0 +1,92 @@
+/* Custom Figma-Style Multiplayer User Cursor */
+@media (hover: hover) or (pointer: fine) or (any-pointer: fine) {
+  *, *::before, *::after {
+    cursor: none !important;
+  }
+  html, body {
+    cursor: none !important;
+  }
+}
+
+.user-cursor-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 99999999;
+  user-select: none;
+  contain: layout style;
+  will-change: transform, opacity;
+  transition: opacity 0.15s ease;
+}
+
+.user-cursor-arrow-wrap {
+  position: absolute;
+  top: -3px;
+  left: -4px;
+  pointer-events: none;
+  transform-origin: 3.5px 2.5px;
+  transition: none !important;
+  will-change: transform;
+}
+
+.user-cursor-arrow-inner {
+  transform-origin: 3.5px 2.5px;
+  transition: transform 0.12s cubic-bezier(0.2, 0.8, 0.2, 1);
+  display: block;
+}
+
+.user-cursor-arrow-svg {
+  display: block;
+  filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.2));
+}
+
+.user-cursor-tag-wrap {
+  position: absolute;
+  top: 14px;
+  left: 15px;
+  pointer-events: none;
+  transform-origin: top left;
+  transition: none !important;
+  will-change: transform;
+}
+
+.user-cursor-tag {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: #FFC700;
+  color: #0A0A0A;
+  font-family: 'Clash Grotesk Variable', 'Clash Grotesk', sans-serif;
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  padding: 3px 8px;
+  border-radius: 4px;
+  white-space: nowrap;
+  line-height: 1.3;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18), 0 1px 2px rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  transition: transform 0.12s cubic-bezier(0.2, 0.8, 0.2, 1), background 0.15s ease;
+}
+
+/* Clicking / Press state */
+.user-cursor-container.is-clicking .user-cursor-arrow-inner {
+  transform: scale(0.88);
+}
+
+.user-cursor-container.is-clicking .user-cursor-tag {
+  transform: scale(0.92);
+}
+
+/* Hovering interactive elements */
+.user-cursor-container.is-hovering .user-cursor-arrow-inner {
+  transform: scale(1.1);
+}
+
+.user-cursor-container.is-hovering .user-cursor-tag {
+  background: #FFD233;
+}
+

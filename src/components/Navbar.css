@@ -1,0 +1,303 @@
+.navbar-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 0;
+  pointer-events: none;
+}
+
+.top-tab-container,
+.navbar {
+  pointer-events: auto;
+}
+
+/* ===== TOP NOTCH TAB (FIGMA SPEC) ===== */
+.top-tab-container {
+  display: inline-flex;
+  align-items: stretch;
+  justify-content: center;
+  position: relative;
+  top: 0;
+  margin-top: 0;
+  margin-bottom: 8px;
+  user-select: none;
+  filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.12));
+}
+
+.tab-wing {
+  height: 38px;
+  width: 38px;
+  display: block;
+  flex-shrink: 0;
+}
+
+.tab-wing-left {
+  margin-right: -1px;
+}
+
+.tab-wing-right {
+  margin-left: -1px;
+}
+
+.top-available-tab {
+  background: #353535;
+  height: 38px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+
+@keyframes liveBlinkPulse {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(97, 197, 84, 0.7), 0 0 10px rgba(97, 197, 84, 0.6);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.85);
+    box-shadow: 0 0 0 7px rgba(97, 197, 84, 0), 0 0 4px rgba(97, 197, 84, 0.2);
+  }
+}
+
+.top-available-dot {
+  width: 14px;
+  height: 14px;
+  background: #61C554;
+  border-radius: 9999px;
+  flex-shrink: 0;
+  display: inline-block;
+  animation: liveBlinkPulse 1.8s ease-in-out infinite;
+}
+
+.top-available-text {
+  color: #FFFFFF;
+  font-family: 'Clash Grotesk Variable', 'Clash Grotesk', sans-serif;
+  font-size: clamp(14px, 1.2vw, 17px);
+  font-weight: 400;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: var(--max-width);
+  padding: 16px 40px;
+  transition: all var(--transition);
+}
+
+.navbar.scrolled {
+  background: rgba(232, 232, 232, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-radius: var(--radius-pill);
+  margin: 0 auto;
+  max-width: 900px;
+  padding: 12px 32px;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+}
+
+.navbar-logo {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--orange);
+  letter-spacing: -0.02em;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+.navbar-links a {
+  font-size: var(--fs-body);
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: color var(--transition);
+  position: relative;
+}
+
+.navbar-links a:hover {
+  color: var(--text-primary);
+}
+
+.navbar-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--orange);
+  transition: width var(--transition);
+}
+
+.navbar-links a:hover::after {
+  width: 100%;
+}
+
+/* ===== NAVBAR ACTIONS (TOGGLE + RESUME) ===== */
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* ===== RESUME BUTTON (FIGMA SPEC) ===== */
+.navbar-resume-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  height: 39px;
+  padding: 4px 4px 4px 22px;
+  background: linear-gradient(180deg, #404040 0%, #171717 100%);
+  border-radius: 12px;
+  text-decoration: none;
+  box-shadow:
+    0px 20px 25px -5px rgba(0, 0, 0, 0.25),
+    0px 8px 10px -6px rgba(0, 0, 0, 0.15),
+    0px 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease;
+  user-select: none;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.navbar-resume-btn:hover {
+  background: linear-gradient(180deg, #4a4a4a 0%, #202020 100%);
+  transform: translateY(-1px);
+  box-shadow:
+    0px 25px 30px -5px rgba(0, 0, 0, 0.3),
+    0px 10px 15px -5px rgba(0, 0, 0, 0.2),
+    0px 4px 6px rgba(0, 0, 0, 0.12);
+}
+
+.navbar-resume-btn:active {
+  transform: translateY(0);
+}
+
+.resume-btn-text {
+  font-family: 'Clash Grotesk Variable', 'Clash Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: #FFFFFF;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+
+.resume-btn-icon {
+  width: 30.8px;
+  height: 30.8px;
+  background: #FFFFFF;
+  border-radius: 9.8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 1.4px 1.4px 8.4px 2.8px rgba(75, 85, 99, 0.25);
+  transition: transform 0.2s ease;
+}
+
+.navbar-resume-btn:hover .resume-btn-icon {
+  transform: translateY(1.5px);
+}
+
+.resume-btn-icon svg {
+  display: block;
+}
+
+/* Mobile */
+.navbar-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  padding: 8px;
+}
+
+.navbar-toggle span {
+  width: 24px;
+  height: 2px;
+  background: var(--text-primary);
+  transition: all var(--transition);
+}
+
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--bg-light);
+  z-index: 999;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 32px;
+}
+
+.mobile-menu.open {
+  display: flex;
+}
+
+.mobile-menu a {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.mobile-close {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  background: none;
+  font-size: 32px;
+  color: var(--text-primary);
+}
+
+@media (max-width: 768px) {
+  .navbar-links {
+    display: none;
+  }
+
+  .navbar-contact {
+    display: none;
+  }
+
+  .navbar-toggle {
+    display: flex;
+  }
+
+  .navbar {
+    padding: 16px 20px;
+  }
+}
+
+/* ===== COSMIC DARK MODE — NAVBAR TEXT OVERRIDES ===== */
+/* Only white text while the navbar is floating over the dark hero.
+   Once .scrolled kicks in (light glass pill background), revert to default dark text. */
+body.hero-cosmic-dark .navbar:not(.scrolled) .navbar-links a {
+  color: rgba(255, 255, 255, 0.75);
+  transition: color var(--transition);
+}
+
+body.hero-cosmic-dark .navbar:not(.scrolled) .navbar-links a:hover {
+  color: #ffffff;
+}

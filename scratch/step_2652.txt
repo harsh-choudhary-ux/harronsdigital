@@ -1,0 +1,22 @@
+const CosmicFluidMaterial = shaderMaterial(
+  {
+    resolution: new THREE.Vector2(),
+    mouseTrail: null,
+    uTime: 0.0,
+    uDarkMode: 0.0
+  },
+  /* glsl Vertex Shader */
+  `
+    varying vec2 vUv;
+    void main() {
+      vUv = uv;
+      gl_Position = vec4(position.xy, 0.0, 1.0);
+    }
+  `,
+  /* glsl Fragment Shader */
+  `
+    uniform vec2 resolution;
+    uniform sampler2D mouseTrail;
+    uniform float uTime;
+    uniform float uDarkMode;
+    varying vec2 vUv;

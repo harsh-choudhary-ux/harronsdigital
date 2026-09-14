@@ -1,0 +1,343 @@
+/* ===== HOW WE WORK SECTION ===== */
+.how-we-work-section {
+  position: relative;
+  background: #F1F1F1;
+  padding: 70vh 40px 220px;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: visible;
+  user-select: none;
+  transition: background-color 0.15s ease-out;
+}
+
+.how-we-work-container {
+  max-width: 1240px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* ===== HEADER ROW: HOW WE WORK ... [04] ===== */
+.how-we-work-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 32px;
+  width: 100%;
+  margin-bottom: clamp(80px, 10vw, 120px);
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  transition: border-color 0.4s ease;
+}
+
+.how-we-work-title {
+  font-family: 'Clash Grotesk Variable', 'Clash Grotesk', sans-serif !important;
+  font-size: clamp(32px, 4vw, var(--fs-heading));
+  font-weight: 600;
+  line-height: 1.15;
+  color: #000000;
+  margin: 0;
+  max-width: 960px;
+  letter-spacing: -0.025em;
+  transition: color 0.4s ease;
+}
+
+.how-we-work-index {
+  font-family: 'Clash Grotesk Variable', 'Clash Grotesk', sans-serif !important;
+  font-size: clamp(24px, 2.5vw, 36px);
+  font-weight: 500;
+  line-height: 1.1;
+  color: rgba(0, 0, 0, 0.4);
+  letter-spacing: -0.01em;
+  transition: color 0.4s ease;
+}
+
+/* ===== 2-COLUMN STAGGERED GRID ===== */
+.how-we-work-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: clamp(20px, 4vw, 60px);
+  position: relative;
+  align-items: start;
+}
+
+/* ===== 3D SHAPE — Sticky overlay, parked at section bottom ===== */
+.how-we-work-3d-wrap {
+  position: fixed;
+  bottom: -250px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 10;
+  transition: bottom 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ===== GLASS CUBE KEYFRAMES ===== */
+@keyframes glassFloat {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.6; }
+  50%       { opacity: 1; }
+}
+
+.shape-scene {
+  width: 160px;
+  height: 160px;
+  perspective: 700px;
+  perspective-origin: 50% 40%;
+  animation: glassFloat 6s ease-in-out infinite;
+}
+
+.shape-cube {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateX(20deg) rotateY(0deg);
+  will-change: transform;
+}
+
+/* ===== GLASS FACES ===== */
+.shape-face {
+  position: absolute;
+  width: 160px;
+  height: 160px;
+  box-sizing: border-box;
+  border-radius: 6px;
+  /* Frosted glass base */
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.18) 0%,
+    rgba(255, 255, 255, 0.06) 40%,
+    rgba(92, 89, 232, 0.07) 70%,
+    rgba(255, 255, 255, 0.12) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(8px) saturate(1.4);
+  -webkit-backdrop-filter: blur(8px) saturate(1.4);
+  /* Glow edge */
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.5),
+    inset 0 -1px 0 rgba(92, 89, 232, 0.15),
+    0 0 12px rgba(92, 89, 232, 0.12);
+  overflow: hidden;
+}
+
+/* Inner highlight streak on each face */
+.shape-face::after {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  width: 40%;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255,255,255,0.7), transparent);
+  border-radius: 2px;
+}
+
+.face-front  { transform: rotateY(  0deg) translateZ(80px); }
+.face-back   { transform: rotateY(180deg) translateZ(80px); }
+.face-left   { transform: rotateY(-90deg) translateZ(80px); }
+.face-right  { transform: rotateY( 90deg) translateZ(80px); }
+.face-top    { transform: rotateX( 90deg) translateZ(80px); }
+.face-bottom { transform: rotateX(-90deg) translateZ(80px); }
+
+/* Slightly different tint per face for realism */
+.face-front  { background: linear-gradient(135deg, rgba(255,255,255,0.22) 0%, rgba(92,89,232,0.10) 100%); }
+.face-right  { background: linear-gradient(135deg, rgba(255,255,255,0.10) 0%, rgba(92,89,232,0.14) 100%); }
+.face-top    { background: linear-gradient(180deg, rgba(255,255,255,0.30) 0%, rgba(255,255,255,0.08) 100%); }
+.face-bottom { background: linear-gradient(0deg,   rgba(0,0,0,0.08)      0%, rgba(92,89,232,0.06) 100%); }
+.face-left   { background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(92,89,232,0.12) 100%); }
+.face-back   { background: linear-gradient(135deg, rgba(92,89,232,0.08)  0%, rgba(255,255,255,0.04) 100%); }
+
+/* ===== ORBITAL RINGS — subtle glow tint ===== */
+.shape-ring {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  border: 1px solid rgba(92, 89, 232, 0.20);
+  box-sizing: border-box;
+  transform-style: preserve-3d;
+  animation: glowPulse 4s ease-in-out infinite;
+}
+
+.ring-1 {
+  width: 220px;
+  height: 220px;
+  margin: -110px 0 0 -110px;
+  transform: rotateX(75deg);
+  animation-delay: 0s;
+}
+
+.ring-2 {
+  width: 270px;
+  height: 270px;
+  margin: -135px 0 0 -135px;
+  transform: rotateX(75deg) rotateZ(60deg);
+  border-color: rgba(92, 89, 232, 0.12);
+  animation-delay: -1.3s;
+}
+
+.ring-3 {
+  width: 320px;
+  height: 320px;
+  margin: -160px 0 0 -160px;
+  transform: rotateX(75deg) rotateZ(120deg);
+  border-color: rgba(92, 89, 232, 0.07);
+  animation-delay: -2.6s;
+}
+
+.how-we-work-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.how-we-work-col-left {
+  gap: clamp(140px, 18vw, 240px);
+}
+
+/* Right column is staggered downwards to create the alternating zig-zag pattern */
+.how-we-work-col-right {
+  gap: clamp(140px, 18vw, 240px);
+  padding-top: clamp(200px, 24vw, 320px);
+}
+
+/* ===== CARD CONTENT & TYPOGRAPHY ===== */
+.how-we-work-card {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.how-we-work-card:hover {
+  transform: translateY(-4px);
+}
+
+.left-card {
+  align-items: flex-start;
+  text-align: left;
+}
+
+.right-card {
+  align-items: flex-end;
+  text-align: right;
+}
+
+/* Step Number [001], [002], etc. */
+.step-number {
+  font-family: 'Clash Grotesk Variable', 'Clash Grotesk', sans-serif;
+  font-size: 17px;
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 20px;
+  color: #000000;
+  display: block;
+  margin-bottom: 12px;
+  transition: color 0.4s ease;
+}
+
+/* Big Clash Grotesk Headline */
+.step-title {
+  font-family: 'Clash Grotesk Variable', 'Clash Grotesk', sans-serif;
+  font-size: clamp(22px, 2.8vw, var(--fs-subhead));
+  font-weight: 500;
+  text-transform: uppercase;
+  line-height: 1.1;
+  color: #000000;
+  margin: 0 0 16px 0;
+  letter-spacing: -0.015em;
+  max-width: 520px;
+  transition: color 0.4s ease;
+}
+
+/* Step Description Paragraph */
+.step-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.left-card .step-content {
+  align-items: flex-start;
+}
+
+.right-card .step-content {
+  align-items: flex-end;
+}
+
+.step-description {
+  font-family: 'Clash Grotesk Variable', 'Clash Grotesk', sans-serif;
+  font-size: clamp(var(--fs-body), 1.25vw, 19px);
+  font-weight: 400;
+  line-height: 1.6;
+  letter-spacing: 0.01em;
+  color: rgba(0, 0, 0, 0.72);
+  max-width: 480px;
+  margin: 0;
+  transition: color 0.4s ease;
+}
+
+/* Duration Tag e.g. 2–4 DAYS */
+.step-duration {
+  font-family: 'Clash Grotesk Variable', 'Clash Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 18px;
+  letter-spacing: 2.52px;
+  color: #000000;
+  display: inline-block;
+  transition: color 0.4s ease;
+}
+
+/* ===== DYNAMIC DARK STATE (.is-dark) ===== */
+.how-we-work-section.is-dark .how-we-work-header {
+  border-bottom-color: rgba(241, 241, 241, 0.15);
+}
+
+.how-we-work-section.is-dark .how-we-work-title,
+.how-we-work-section.is-dark .how-we-work-index,
+.how-we-work-section.is-dark .step-number,
+.how-we-work-section.is-dark .step-title,
+.how-we-work-section.is-dark .step-duration {
+  color: #F1F1F1;
+}
+
+.how-we-work-section.is-dark .step-description {
+  color: rgba(241, 241, 241, 0.75);
+}
+
+/* ===== RESPONSIVE MEDIA QUERIES ===== */
+@media (max-width: 860px) {
+  .how-we-work-section {
+    padding: 70vh 20px 120px;
+  }
+
+  .how-we-work-grid {
+    grid-template-columns: 1fr;
+    gap: 80px;
+  }
+
+  .how-we-work-3d-wrap {
+    display: none;
+  }
+
+  .how-we-work-col-right {
+    padding-top: 0;
+  }
+
+  .right-card {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .right-card .step-content {
+    align-items: flex-start;
+  }
+}

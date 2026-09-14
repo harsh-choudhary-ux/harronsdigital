@@ -1,0 +1,138 @@
+@keyframes marqueeScrollLeft {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes marqueeScrollRight {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.marquee-strips-wrapper {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  overflow: hidden;
+  margin-top: -80px;
+  margin-bottom: 40px;
+  z-index: 15;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  contain: paint layout;
+}
+
+.marquee-strip {
+  position: absolute;
+  left: -20%;
+  width: 140%;
+  height: 76px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
+  user-select: none;
+  box-sizing: border-box;
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Black Strip - angled downward to the right, behind orange strip */
+.strip-dark {
+  background-color: #000000;
+  color: #FFFFFF;
+  top: 50%;
+  transform: translateY(-50%) rotate(-3.5deg) translateZ(0);
+  z-index: 1;
+}
+
+/* Orange Strip - angled upward to the right, crossing ON TOP */
+.strip-orange {
+  background-color: var(--orange);
+  color: #FFFFFF;
+  top: 50%;
+  transform: translateY(-50%) rotate(3.2deg) translateZ(0);
+  z-index: 2;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
+.track-left {
+  animation: marqueeScrollLeft 28s linear infinite;
+}
+
+.track-right {
+  animation: marqueeScrollRight 28s linear infinite;
+}
+
+.marquee-group {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.strip-item {
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
+  padding-right: 48px;
+  font-family: 'Clash Grotesk Variable', 'Clash Grotesk', sans-serif !important;
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  line-height: 1;
+}
+
+@media (max-width: 1024px) {
+  .marquee-strips-wrapper {
+    height: 200px;
+    margin-top: -60px;
+    margin-bottom: 30px;
+  }
+
+  .marquee-strip {
+    height: 62px;
+    left: -25%;
+    width: 150%;
+  }
+
+  .strip-item {
+    font-size: 19px;
+    padding-right: 36px;
+  }
+}
+
+@media (max-width: 768px) {
+  .marquee-strips-wrapper {
+    height: 160px;
+    margin-top: -40px;
+    margin-bottom: 20px;
+  }
+
+  .marquee-strip {
+    height: 54px;
+    left: -30%;
+    width: 160%;
+  }
+
+  .strip-item {
+    font-size: 16px;
+    padding-right: 28px;
+  }
+}

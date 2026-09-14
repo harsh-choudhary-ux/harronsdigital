@@ -1,0 +1,33 @@
+/* ===== PRELOADER OVERLAY ===== */
+.preloader-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 999999;
+  background: #F1F1F1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  user-select: none;
+  box-sizing: border-box;
+}
+
+.preloader-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preloader-number {
+  font-family: 'Clash Grotesk Variable', 'Clash Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  color: #0A0A0A;
+  line-height: 1;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+}
+

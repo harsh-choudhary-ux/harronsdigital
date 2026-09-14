@@ -1,0 +1,119 @@
+/* ===== CORKBOARD SECTION ===== */
+.corkboard-section {
+  position: relative;
+  background: #353535;
+  padding: 120px 24px 150px;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+  user-select: none;
+  scroll-margin-top: 80px;
+}
+
+.corkboard-container {
+  max-width: 1424px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* ===== HEADER: SUBTITLE & GIANT HEADING ===== */
+.corkboard-header {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  z-index: 1;
+  margin-bottom: -56px;
+  pointer-events: none;
+}
+
+.corkboard-subtitle {
+  font-family: 'Clash Grotesk Variable', 'Clash Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #F1F1F1;
+  margin: 0 0 12px;
+  letter-spacing: -0.01em;
+}
+
+.corkboard-title-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.corkboard-display-title {
+  font-family: 'Clash Grotesk Variable', 'Clash Grotesk', sans-serif;
+  font-size: clamp(68px, 14vw, 204px);
+  font-weight: 600;
+  line-height: 0.96;
+  letter-spacing: -0.025em;
+  margin: 0 auto;
+  text-align: center;
+  color: #F1F1F1;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.45) 0%, rgba(255, 255, 255, 0) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  user-select: none;
+}
+
+/* ===== THE DARK CORKBOARD CARD ===== */
+.corkboard-card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 1392px;
+  margin: 0 auto;
+  border-radius: 26px;
+  overflow: hidden;
+  background: #0E0E0E;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.2, 1), box-shadow 0.4s ease;
+}
+
+.corkboard-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.32);
+}
+
+.corkboard-card-inner {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0E0E0E;
+  overflow: hidden;
+}
+
+.corkboard-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
+  transition: transform 0.6s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+.corkboard-card:hover .corkboard-img {
+  transform: scale(1.018);
+}
+
+/* ===== RESPONSIVE MEDIA QUERIES ===== */
+@media (max-width: 768px) {
+  .corkboard-section {
+    padding: 80px 16px 100px;
+  }
+
+  .corkboard-header {
+    margin-bottom: -24px;
+  }
+
+  .corkboard-display-title {
+    font-size: clamp(48px, 12vw, 84px);
+  }
+
+  .corkboard-card {
+    margin: 0 auto;
+    border-radius: 18px;
+  }
+}

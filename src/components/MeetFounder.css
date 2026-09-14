@@ -1,0 +1,131 @@
+.meet-founder {
+  padding: 100px 40px;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.founder-card {
+  background: var(--dark);
+  color: #fff;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 460px 1fr;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+}
+
+.founder-image-wrapper {
+  position: relative;
+  min-height: 480px;
+  background: #111;
+}
+
+.founder-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+.founder-content {
+  padding: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.founder-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: 'Clash Grotesk Variable', 'Clash Grotesk', sans-serif !important;
+  font-size: 14px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--orange);
+  margin-bottom: 20px;
+}
+
+.founder-name {
+  font-family: 'Clash Grotesk Variable', 'Clash Grotesk', sans-serif !important;
+  font-size: clamp(32px, 4.5vw, var(--fs-heading));
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.12;
+  margin-bottom: 12px;
+}
+
+.founder-title {
+  font-size: var(--fs-body);
+  color: rgba(255, 255, 255, 0.65);
+  font-weight: 500;
+  margin-bottom: 32px;
+}
+
+.founder-bio {
+  font-size: var(--fs-body);
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.85);
+  margin-bottom: 40px;
+}
+
+.founder-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
+  padding-top: 32px;
+  margin-bottom: 36px;
+}
+
+.founder-stat-item h4 {
+  font-size: 32px;
+  font-weight: 800;
+  color: var(--orange);
+  line-height: 1;
+  margin-bottom: 6px;
+}
+
+.founder-stat-item p {
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.founder-socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.founder-social-link {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  text-decoration: none;
+  opacity: 0.7;
+  transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.founder-social-link:hover {
+  opacity: 1;
+  color: var(--orange);
+}
+
+@media (max-width: 968px) {
+  .founder-card {
+    grid-template-columns: 1fr;
+  }
+  .founder-content {
+    padding: 36px 24px;
+  }
+  .founder-image-wrapper {
+    min-height: 380px;
+  }
+  .meet-founder {
+    padding: 60px 20px;
+  }
+  .founder-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

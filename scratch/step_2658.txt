@@ -1,0 +1,125 @@
+      // Liquid mask threshold - in dark mode, the whole cosmos canvas is visible
+      float fluidMask = smoothstep(0.16, 0.55, rawTrail);
+      float finalAlpha = clamp(fluidMask + uDarkMode, 0.0, 1.0);
+      if (finalAlpha <= 0.001) discard;
+
+      // 2. Deep Cosmic Starfield Coordinates
+      float aspect = resolution.x / resolution.y;
+      vec2 p = (screenUv - 0.5);
+      p.x *= aspect;
+
+      // Slow cosmic rotation
+      vec2 rotP = rot2(uTime * 0.005) * p;
+
+      // 3. Procedural Starfield & Twinkling
+      float id1, id2, id3;
+      float s1 = starGrid(rotP, 200.0, 0.88, 0.06, id1);
+      float s2 = starGrid(rot2(0.3) * rotP, 150.0, 0.95, 0.08, id2);
+      float s3 = starGrid(rotP, 85.0, 0.985, 0.11, id3);
+
+      // Twinkle animation
+      float tw1 = 0.6 + 0.4 * sin(uTime * 2.5 + id1 * 60.0);
+      float tw2 = 0.5 + 0.5 * sin(uTime * 3.2 + id2 * 45.0);
+      float tw3 = 0.7 + 0.3 * sin(uTime * 1.8 + id3 * 30.0);
+
+      float stars = s1 * tw1 * 0.7 + s2 * tw2 * 0.9 + s3 * tw3 * 1.5;
+
+      // Occasional Shooting Star / Meteor Streak
+      float meteorInterval = 3.0;
+      float mBlock = floor(uTime / meteorInterval);
+      float mLocal = mod(uTime, meteorInterval);
+      float mDur = 0.65;
+      if (mLocal < mDur) {
+        float appear = step(0.35, hash21(vec2(mBlock, 19.8)));
+        vec2 mStart = vec2(hash21(vec2(mBlock, 3.4)) * 1.6 - 0.8, 0.4 + hash21(vec2(mBlock, 7.8)) * 0.3);
+        vec2 mDir = normalize(vec2(1.2, -0.65));
+        vec2 mHead = mStart + mDir * (mLocal / mDur) * 1.4;
+        vec2 mDelta = p - mHead;
+        float dPar = dot(mDelta, mDir);
+        float dPerp = length(mDelta - mDir * dPar);
+        if (dPar < 0.0 && dPar > -0.25) {
+          float tailFade = (1.0 + dPar / 0.25);
+          stars += exp(-dPerp * 300.0) * tailFade * appear * 2.2;
+        }
+      }
+
+      // 4. Volumetric Deep-Blue Nebula FBM Clouds
+      vec2 nebCoord1 = rotP * 1.6 + vec2(uTime * 0.02, -uTime * 0.015);
+      vec2 nebCoord2 = rotP * 3.2 - vec2(uTime * 0.025, uTime * 0.02);
+
+      float neb1 = fbm(nebCoord1);
+      float neb2 = fbm(nebCoord2);
+      float nebDensity = clamp((neb1 * 0.6 + neb2 * 0.4) + 0.3, 0.0, 1.0);
+
+      // Deep-blue cosmic palette with #5c59e8 violet accents
+      vec3 deepVoid    = vec3(0.012, 0.055, 0.16); // rich midnight sapphire
+      vec3 midCobalt   = vec3(0.045, 0.22, 0.58);  // vibrant deep cobalt blue
+      vec3 royalAzure  = vec3(0.14, 0.44, 0.95);   // luminous celestial azure
+      vec3 purpleAccent= vec3(0.36, 0.35, 0.91);   // #5c59e8 custom color
+      vec3 electricCyan= vec3(0.42, 0.84, 1.0);    // bright cyan stardust
+
+      vec3 nebulaColor = mix(deepVoid, midCobalt, smoothstep(0.05, 0.45, nebDensity));
+      nebulaColor = mix(nebulaColor, royalAzure, smoothstep(0.45, 0.75, nebDensity));
+      nebulaColor = mix(nebulaColor, purpleAccent, smoothstep(0.75, 0.90, nebDensity) * 0.6);
+      nebulaColor = mix(nebulaColor, electricCyan, smoothstep(0.90, 1.0, nebDensity) * 0.5);
+
+      // Add stars & cosmic core glow
+      vec3 cosmos = nebulaColor + vec3(stars) * vec3(0.90, 0.96, 1.0);
+
+      // 5. Electric Cobalt/Cyan Fluid Rim Aura
+      float rim = smoothstep(0.16, 0.35, rawTrail) * (1.0 - smoothstep(0.35, 0.70, rawTrail));
+      float chroma = abs(trailR - trailB) * 3.0;
+
+      vec3 rimColor = mix(purpleAccent, electricCyan, rim);
+      cosmos += rimColor * (rim * 1.5 + chroma * 1.2);
+
+      // 6. Final Alpha & Output
+      gl_FragColor = vec4(cosmos, finalAlpha);
+    }
+  `
+);
+
+const identityEase = x => x;
+
+function Scene({ trailSize = 0.14, maxAge = 380, interpolate = 0, easingFunction, isDarkMode = false, onMaskUpdate }) {
+  const size = useThree(s => s.size);
+  const viewport = useThree(s => s.viewport);
+  const gl = useThree(s => s.gl);
+
+  // Smooth mouse lerping state for ultra-smooth fluid movement
+  const targetPos = useRef({ x: 0.5, y: 0.5, active: false });
+  const currentPos = useRef({ x: 0.5, y: 0.5 });
+
+  const cosmicMaterial = useMemo(() => {
+    const mat = new CosmicFluidMaterial();
+    mat.transparent = true;
+    mat.depthWrite = false;
+    return mat;
+  }, []);
+
+  useEffect(() => () => cosmicMaterial.dispose(), [cosmicMaterial]);
+
+  useEffect(() => {
+    if (cosmicMaterial.uniforms.resolution) {
+      cosmicMaterial.uniforms.resolution.value.set(size.width * viewport.dpr, size.height * viewport.dpr);
+    }
+  }, [cosmicMaterial, size, viewport.dpr]);
+
+  const [trail, onMove] = useTrailTexture({
+    size: 512,
+    radius: trailSize,
+    maxAge: maxAge,
+    interpolate: interpolate || 0,
+    ease: easingFunction || identityEase
+  });
+
+  // Pure WebGL animation frame loop: 120 FPS+ GPU execution with zero CPU overhead
+  useFrame((_, delta) => {
+    if (cosmicMaterial.uniforms.uTime) {
+      cosmicMaterial.uniforms.uTime.value += delta;
+    }
+    if (cosmicMaterial.uniforms.uDarkMode !== undefined) {
+      const targetDark = isDarkMode ? 1.0 : 0.0;
+      cosmicMaterial.uniforms.uDarkMode.value += (targetDark - cosmicMaterial.uniforms.uDarkMode.value) * 0.08;
+    }
+  });

@@ -1,0 +1,730 @@
+/* ===== HERO SCROLL TRACK & STICKY STAGE ===== */
+.hero-scroll-track {
+  position: relative;
+  width: 100%;
+  height: 230vh;
+  background: #F1F1F1;
+  transition: background 0.4s ease;
+}
+
+.hero-scroll-track.is-dark {
+  background: #020617;
+}
+
+.hero-sticky-window {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  user-select: none;
+}
+
+/* ===== GHOST LAYER (Layer 1 - Bottom of content) ===== */
+/* Text is white; reveals moving dense clouds */
+.hero-layer-ghost {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0;
+  background: transparent;
+  color: #FFFFFF;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: 0 0;
+  mask-position: 0 0;
+  will-change: -webkit-mask-image, mask-image, opacity;
+  overflow: hidden;
+}
+
+/* ===== COSMIC FLUID LAYER (Layer 2 - Only active in Cosmic Dark mode) ===== */
+.hero-pixel-trail-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+  overflow: visible;
+}
+
+.hero-scroll-track:not(.is-dark) .hero-pixel-trail-layer {
+  display: none !important;
+}
+
+/* Common Hero Layer Dimensions and Alignment */
+.hero-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 140px 40px 80px;
+  box-sizing: border-box;
+}
+
+/* Moving cloud background inside ghost layer */
+.hero-ghost-clouds-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(ellipse 85% 70% at 50% 50%, #151c2e 0%, #0a0d17 75%, #05070c 100%);
+}
+
+.ghost-cloud-layer {
+  position: absolute;
+  will-change: transform;
+  transform: translate3d(0, 0, 0);
+  pointer-events: none;
+  background-repeat: no-repeat;
+}
+
+/* Layer 1: Main billowing cloud volume */
+.ghost-cloud-main {
+  inset: -40px -10% -40px -10%;
+  width: 120%;
+  height: 120%;
+  background-image: url('/images/cloud-transition.webp');
+  background-position: center center;
+  background-size: cover;
+  opacity: 1;
+  animation: ghostCloudFloatMain 16s ease-in-out infinite alternate;
+}
+
+/* Layer 2: Secondary dense volume layer */
+.ghost-cloud-dense {
+  inset: -60px -15% -60px -15%;
+  width: 130%;
+  height: 126%;
+  background-image: url('/images/cloud-transition.webp');
+  background-position: 40% 60%;
+  background-size: 130%;
+  opacity: 0.9;
+  animation: ghostCloudFloatDense 22s ease-in-out infinite alternate-reverse;
+}
+
+/* Layer 3: Tertiary misty depth layer */
+.ghost-cloud-mist {
+  inset: -30px -10% -30px -10%;
+  width: 120%;
+  height: 118%;
+  background-image: url('/images/cloud-transition.webp');
+  background-position: 60% 40%;
+  background-size: 115%;
+  opacity: 0.75;
+  animation: ghostCloudFloatMist 26s ease-in-out infinite alternate;
+}
+
+/* Atmospheric ambient radial illumination */
+.ghost-cloud-ambient-light {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 70% 55% at 50% 50%,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(148, 163, 184, 0.08) 50%,
+    transparent 80%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+@keyframes ghostCloudFloatMain {
+  0% {
+    transform: translate3d(-3%, -10px, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(3%, 8px, 0) scale(1.04);
+  }
+  100% {
+    transform: translate3d(-1.5%, 4px, 0) scale(1.02);
+  }
+}
+
+@keyframes ghostCloudFloatDense {
+  0% {
+    transform: translate3d(3.5%, 8px, 0) scale(1.03);
+  }
+  50% {
+    transform: translate3d(-3%, -8px, 0) scale(1);
+  }
+  100% {
+    transform: translate3d(2%, -4px, 0) scale(1.05);
+  }
+}
+
+@keyframes ghostCloudFloatMist {
+  0% {
+    transform: translate3d(-4%, 6px, 0);
+  }
+  50% {
+    transform: translate3d(3.5%, -8px, 0);
+  }
+  100% {
+    transform: translate3d(-2%, 4px, 0);
+  }
+}
+
+/* ===== NORMAL LAYER (Layer 3 - Top) ===== */
+/* Original black text on #F1F1F1 background; cutout where blob is */
+.hero-layer-normal {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 3;
+  background: #F1F1F1;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: 0 0;
+  mask-position: 0 0;
+  will-change: -webkit-mask-image, mask-image;
+}
+
+.hero-content-inner {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  max-width: 1200px;
+  will-change: transform, opacity;
+}
+
+/* ===== NAVBAR TRANSITION CONTROLS ===== */
+body.hero-scaling-active .navbar-wrapper {
+  opacity: var(--hero-navbar-opacity, 1) !important;
+  pointer-events: var(--hero-navbar-pointer-events, auto) !important;
+  transition: opacity 0.15s ease-out;
+}
+
+/* ===== LAYER 4: EXPANDING SHOWCASE STAGE ===== */
+.hero-showcase-stage {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* The expanding box that fills display with exactly 24px margin */
+.showcase-expanding-box {
+  position: relative;
+  width: calc(100% - 48px);
+  max-width: calc(100% - 48px);
+  height: calc(100% - 48px);
+  max-height: calc(100% - 48px);
+  margin: 0;
+  overflow: hidden;
+  background: #0b0b0d;
+  will-change: transform, border-radius;
+  transform-origin: center center;
+}
+
+/* Scaling pill image that provides 100% continuous transition from resting state */
+.showcase-scaling-pill-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  border-radius: inherit;
+  display: block;
+  z-index: 2;
+  pointer-events: none;
+  will-change: opacity;
+}
+
+/* Zoom wrapper ensures 1:1 unsqueezed aspect ratio and camera zoom into center card */
+.showcase-zoom-wrapper {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform-origin: center center;
+  will-change: transform, opacity;
+  z-index: 1;
+}
+
+/* Live interactive card grid scaling directly from the pill */
+.showcase-interactive-layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit !important;
+  overflow: hidden;
+}
+
+/* Ensure embedded HeroShowcase exactly matches preview image geometry from center */
+.showcase-interactive-layer .showcase-outer-frame {
+  width: 100% !important;
+  height: 100% !important;
+  max-width: 100% !important;
+  position: relative !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: 24px !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  overflow: hidden !important;
+}
+
+.showcase-interactive-layer .showcase-scaler-box {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  margin-top: -444px !important;
+  margin-left: -696px !important;
+  transform: scale(var(--showcase-cover-scale, 1)) !important;
+  transform-origin: center center !important;
+}
+
+/* ===== LIVE TIME TEXT ===== */
+.hero-live-time {
+  font-family: 'Clash Grotesk Variable', 'Clash Grotesk', sans-serif;
+  font-size: clamp(15px, 1.4vw, 18px);
+  font-weight: 400;
+  color: #71717A;
+  margin-bottom: 24px;
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+  user-select: none;
+}
+
+/* ===== HERO HEADLINE (FIGMA SPEC) ===== */
+.hero-headline {
+  font-family: 'Clash Grotesk Variable', 'Clash Grotesk', sans-serif;
+  font-size: clamp(32px, 3.8vw, var(--fs-hero));
+  font-weight: 400; /* Regular */
+  line-height: 1.5; /* 150% */
+  letter-spacing: 0; /* 0% */
+  color: var(--text-primary);
+  max-width: 1200px;
+  margin-bottom: 32px;
+  user-select: none;
+}
+
+.hero-headline .purple {
+  color: #5C59E8;
+  font-weight: 500;
+  display: inline-grid;
+  grid-template-areas: "role";
+  vertical-align: baseline;
+  text-align: left;
+}
+
+.hero-role-sizer {
+  grid-area: role;
+  visibility: hidden;
+  user-select: none;
+  pointer-events: none;
+  white-space: nowrap;
+  letter-spacing: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+.hero-role-current {
+  grid-area: role;
+  justify-self: start;
+  align-self: baseline;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: baseline;
+}
+
+.hero-headline .muted {
+  color: #8E8E93;
+}
+
+.hero-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(60px, 7vw, 101px);
+  height: clamp(48px, 5.55vw, 80px);
+  border-radius: clamp(14px, 1.66vw, 24px);
+  vertical-align: middle;
+  margin: 0 clamp(4px, 0.6vw, 8px);
+  position: relative;
+  top: -4px;
+  border: none;
+  box-shadow: none;
+  background: white;
+  overflow: hidden; /* Figma: Clip content */
+}
+
+.hero-pill img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+  display: block;
+}
+
+.hero-pill-showcase {
+  background: #0b0b0d;
+  border-radius: 24px;
+  overflow: hidden; /* Figma: Clip content */
+}
+
+.hero-pill-showcase .hero-pill-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  border-radius: inherit;
+  display: block;
+}
+
+.hero-subtitle {
+  font-size: var(--fs-body);
+  color: var(--text-secondary);
+  max-width: 600px;
+  line-height: 1.7;
+  margin-bottom: 0;
+}
+
+/* ===== GHOST LAYER SPECIFIC COLOR & GLOW STYLES ===== */
+.hero-layer-ghost .hero-live-time {
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 6px rgba(0, 0, 0, 0.35);
+}
+
+.hero-layer-ghost .hero-headline {
+  color: #FFFFFF;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.38);
+}
+
+.hero-layer-ghost .hero-headline .purple {
+  color: #5C59E8;
+  text-shadow: none;
+}
+
+.hero-layer-ghost .hero-headline .muted {
+  color: rgba(255, 255, 255, 0.75);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
+}
+
+.hero-layer-ghost .hero-subtitle {
+  color: rgba(255, 255, 255, 0.95);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
+}
+
+.hero-layer-ghost .hero-pill img {
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.25));
+}
+
+/* ===== HERO DARK MODE STYLING ===== */
+.hero {
+  transition: background 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Dark Mode Toggle Floating Control — Same CSS & Position as Arrow Button */
+.hero-dark-toggle-wrap {
+  position: absolute;
+  bottom: 28px;
+  right: max(24px, calc((100vw - 1424px) / 2 + 36px));
+  z-index: 100;
+  pointer-events: auto;
+}
+
+.hero-dark-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  height: 39px;
+  padding: 0 16px 0 8px;
+  background: linear-gradient(180deg, #404040 0%, #171717 100%);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0px 20px 25px -5px rgba(0, 0, 0, 0.25),
+    0px 8px 10px -6px rgba(0, 0, 0, 0.15),
+    0px 2px 4px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+  font-family: 'Clash Grotesk Variable', 'Clash Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: #ffffff;
+  cursor: pointer;
+  user-select: none;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1), background 0.2s ease;
+}
+
+.hero-dark-toggle-btn:hover {
+  background: linear-gradient(180deg, #4a4a4a 0%, #202020 100%);
+  box-shadow:
+    0px 25px 30px -5px rgba(0, 0, 0, 0.3),
+    0px 10px 15px -5px rgba(0, 0, 0, 0.2),
+    0px 4px 6px rgba(0, 0, 0, 0.12);
+  transform: scale(1.02);
+}
+
+.hero-dark-toggle-btn:active {
+  transform: scale(0.97);
+}
+
+.toggle-indicator-track {
+  width: 36px;
+  height: 22px;
+  border-radius: 9999px;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  position: relative;
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.toggle-indicator-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #F59E0B;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  transform: translateX(0);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), background 0.25s ease, color 0.25s ease;
+}
+
+/* Active Dark Mode Button State */
+.hero-dark-toggle-btn.active .toggle-indicator-track {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.hero-dark-toggle-btn.active .toggle-indicator-thumb {
+  transform: translateX(14px);
+  background: #ffffff;
+  color: #6366F1;
+}
+
+.toggle-mode-text {
+  line-height: 1;
+  user-select: none;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+}
+
+.hero-dark-toggle-btn:hover .toggle-mode-text {
+  color: #ffffff;
+}
+
+/* ===== DARK MODE OVERRIDES ===== */
+.hero-scroll-track.is-dark {
+  background: #020617;
+}
+
+.hero-scroll-track.is-dark .hero-pixel-trail-layer {
+  z-index: 1 !important;
+}
+
+.hero-scroll-track.is-dark .hero-ghost-clouds-bg {
+  display: none !important;
+}
+
+.hero-scroll-track.is-dark .hero-layer-ghost {
+  z-index: 2 !important;
+  opacity: 1 !important;
+  background: transparent !important;
+  pointer-events: auto !important;
+}
+
+.hero-scroll-track.is-dark .hero-layer-ghost .hero-headline,
+.hero-scroll-track.is-dark .hero-layer-ghost .hero-subtitle,
+.hero-scroll-track.is-dark .hero-layer-ghost .hero-live-time {
+  text-shadow: none;
+}
+
+.hero-scroll-track.is-dark .hero-layer-normal {
+  /* visibility:hidden keeps the layer in layout flow so pillRef remains
+     measurable by usePillGeometry — display:none would break getBoundingClientRect() */
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+/* Role text — #8eff01 neon green in Cosmic Dark mode */
+.hero-scroll-track.is-dark .hero-layer-ghost .hero-headline .purple {
+  color: #8eff01;
+  text-shadow: 0 0 18px rgba(142, 255, 1, 0.45), 0 0 6px rgba(142, 255, 1, 0.25);
+}
+
+@media (max-width: 768px) {
+  .hero-scroll-track {
+    height: 190vh;
+  }
+
+  .hero-layer {
+    padding: 120px 20px 60px;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero-content-inner {
+    align-items: center;
+    text-align: center;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 480px;
+  }
+
+  .hero-live-time {
+    text-align: center;
+    margin: 0 auto 20px auto;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .hero-headline {
+    text-align: center;
+    font-size: clamp(30px, 8.5vw, 36px);
+    font-weight: 500;
+    line-height: 1.25;
+    letter-spacing: -0.015em;
+    margin: 0 auto 20px auto;
+    max-width: 100%;
+  }
+
+  .hero-headline .purple {
+    font-weight: 500;
+    text-align: center;
+  }
+
+  .hero-role-sizer {
+    font-weight: 500;
+  }
+
+  .hero-role-current {
+    justify-self: center;
+    font-weight: 500;
+  }
+
+  .hero-headline .muted {
+    font-weight: 500;
+    color: #8E8E93;
+  }
+
+  .hero-subtitle {
+    text-align: center;
+    font-size: 15px;
+    line-height: 1.55;
+    font-weight: 400;
+    color: #6B7280;
+    max-width: 380px;
+    margin: 0 auto;
+  }
+
+  /* ===== CLOUD CONTAINMENT ON MOBILE ===== */
+  /* Remove negative bleed so clouds fill exactly the viewport, no overflow */
+  .hero-ghost-clouds-bg {
+    overflow: hidden;
+  }
+
+  .ghost-cloud-main {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+  }
+
+  .ghost-cloud-dense {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+  }
+
+  .ghost-cloud-mist {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+  }
+
+  .showcase-expanding-box {
+    width: calc(100% - 32px);
+    max-width: calc(100% - 32px);
+    height: calc(100% - 32px);
+    max-height: calc(100% - 32px);
+    margin: 0;
+    border-radius: 18px;
+  }
+
+  .showcase-interactive-layer,
+  .showcase-interactive-layer .showcase-outer-frame {
+    border-radius: 18px !important;
+  }
+
+  .hero-pill {
+    width: 58px;
+    height: 44px;
+    margin: 0 4px;
+    vertical-align: middle;
+  }
+
+  /* Hide image pills on mobile — keep only the showcase pill */
+  .hero-pill:not(.hero-pill-showcase) {
+    display: none;
+  }
+
+  .hero-dark-toggle-wrap {
+    bottom: 18px;
+    right: 20px;
+  }
+
+  .toggle-mode-text {
+    display: none;
+  }
+
+  .hero-dark-toggle-btn {
+    padding: 0 8px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero-dark-toggle-wrap {
+    bottom: 16px;
+    right: 16px;
+  }
+}

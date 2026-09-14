@@ -1,0 +1,531 @@
+/* ===== RECENT WORKS SECTION ===== */
+.recent-works-section {
+  position: relative;
+  width: 100%;
+  padding: 100px 24px 140px;
+  background: #F1F1F1;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.recent-works-wrapper {
+  max-width: 1424px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* ===== TOP HEADER ===== */
+.recent-works-header {
+  position: relative;
+  width: 100%;
+  text-align: center;
+  z-index: 1;
+  margin-bottom: -56px;
+  pointer-events: none;
+}
+
+.recent-works-subtitle {
+  font-family: 'Clash Grotesk Variable', 'Clash Grotesk', sans-serif !important;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  color: #5C5C5C;
+  margin: 0 0 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.recent-works-title-container {
+  position: relative;
+  width: 100%;
+  overflow: visible;
+}
+
+.recent-works-display-title {
+  font-family: 'Clash Grotesk Variable', 'Clash Grotesk', sans-serif !important;
+  font-size: clamp(68px, 14vw, 180px);
+  font-weight: 600;
+  line-height: 0.96;
+  letter-spacing: -0.025em;
+  margin: 0 auto;
+  text-align: center;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  user-select: none;
+}
+
+/* ===== MAIN SHOWCASE GLASS CARD ===== */
+.recent-works-card {
+  position: relative;
+  width: 100%;
+  max-width: 1424px;
+  min-height: 794px;
+  border-radius: 32px;
+  overflow: hidden;
+  margin: 0 auto;
+  z-index: 2;
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.25), 0 2px 10px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Blurred Ambient Background Photo */
+.card-bg-blurred {
+  position: absolute;
+  inset: -8%;
+  width: 116%;
+  height: 116%;
+  object-fit: cover;
+  filter: blur(28px) brightness(0.85);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Dark Frosted Blur Overlay */
+.card-overlay-dark {
+  position: absolute;
+  inset: 0;
+  background: rgba(12, 12, 12, 0.40);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Noise Texture Overlay */
+.card-noise-layer {
+  position: absolute;
+  inset: 0;
+  background-image: url('/images/noise-texture.png');
+  background-size: 260px;
+  background-repeat: repeat;
+  opacity: 0.18;
+  mix-blend-mode: overlay;
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* ===== INNER CONTENT GRID ===== */
+.card-content-grid {
+  position: relative;
+  z-index: 4;
+  width: 100%;
+  max-width: 1128px;
+  min-height: 570px;
+  margin: 0 auto;
+  padding: 60px 24px;
+  display: grid;
+  grid-template-columns: 215px minmax(360px, 456px) 241px;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/* Column Base */
+.card-col {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Left Column */
+.card-col-left {
+  justify-content: space-between;
+  min-height: 480px;
+}
+
+.card-intro-text {
+  font-family: 'Clash Grotesk Variable', 'Clash Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: rgba(255, 255, 255, 0.64);
+  max-width: 215px;
+}
+
+/* Problem / Solution blocks */
+.card-problem-solution {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.card-ps-block {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.card-ps-label {
+  font-family: 'Clash Grotesk Variable', 'Clash Grotesk', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.38);
+}
+
+/* ===== VIEW IN FIGMA BUTTON ===== */
+.figma-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+  padding: 8px 14px 8px 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 999px;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+  width: fit-content;
+}
+
+.figma-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.28);
+  transform: translateY(-1px);
+}
+
+.figma-btn:active {
+  transform: translateY(0);
+}
+
+.figma-btn-icon {
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.figma-btn-text {
+  font-family: 'Clash Grotesk Variable', 'Clash Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.85);
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.figma-btn-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.5);
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.figma-btn:hover .figma-btn-arrow {
+  color: rgba(255, 255, 255, 0.9);
+  transform: translate(1px, -1px);
+}
+
+.card-brand-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-counter-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+
+.card-counter-row {
+  display: flex;
+  align-items: baseline;
+  font-family: 'Clash Grotesk Variable', 'Clash Grotesk', sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.counter-curr {
+  color: #FFFFFF;
+  font-weight: 500;
+}
+
+.counter-sep {
+  color: rgba(255, 255, 255, 0.64);
+}
+
+.card-counter-divider {
+  width: 47px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.20);
+  margin-top: 6px;
+}
+
+.card-brand-title {
+  font-family: 'Clash Grotesk Variable', 'Clash Grotesk', sans-serif;
+  font-size: clamp(48px, 4.4vw, 64px);
+  font-weight: 400;
+  line-height: 1.06;
+  color: #FFFFFF;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+/* Center Column: Sharp Poster Preview */
+.card-col-center {
+  align-items: center;
+  justify-content: center;
+}
+
+.card-poster-wrapper {
+  position: relative;
+  width: 456px;
+  max-width: 100%;
+  height: 570px;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55), 0 4px 16px rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(12, 12, 12, 0.82);
+}
+
+.card-poster-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 24px;
+  display: block;
+}
+
+.card-poster-border-outer {
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  border: 1px solid rgba(12, 12, 12, 0.82);
+  pointer-events: none;
+}
+
+.card-poster-border-inner {
+  position: absolute;
+  inset: 1px;
+  border-radius: 23px;
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  pointer-events: none;
+}
+
+/* Right Column: Metadata & Services */
+.card-col-right {
+  justify-content: space-between;
+  min-height: 480px;
+}
+
+.card-meta-top {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-meta-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.meta-role-group {
+  margin-top: 28px;
+}
+
+.meta-label {
+  font-family: 'Clash Grotesk Variable', 'Clash Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: rgba(255, 255, 255, 0.64);
+  margin-bottom: 6px;
+}
+
+.meta-value-year {
+  font-family: 'Clash Grotesk Variable', 'Clash Grotesk', sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 32px;
+  color: #FFFFFF;
+}
+
+.meta-value-role {
+  font-family: 'Clash Grotesk Variable', 'Clash Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  color: #FFFFFF;
+}
+
+.card-meta-bottom {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-meta-bottom .meta-label {
+  margin-bottom: 8px;
+}
+
+.services-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.service-item {
+  font-family: 'Clash Grotesk Variable', 'Clash Grotesk', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 24px;
+  color: #FFFFFF;
+}
+
+/* ===== CAROUSEL NAVIGATION CONTROLS (PINNED TO BOTTOM-RIGHT OF SCREEN) ===== */
+.card-nav-controls {
+  position: fixed;
+  bottom: 28px;
+  right: max(24px, calc((100vw - 1424px) / 2 + 36px));
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(18, 18, 20, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+  padding: 8px 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45), 0 0 0 1px rgba(255, 255, 255, 0.05);
+  user-select: none;
+}
+
+.card-nav-btn {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px 8px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.card-nav-btn:hover {
+  color: #ffffff;
+  transform: scale(1.18);
+}
+
+.card-nav-btn:active {
+  transform: scale(0.95);
+}
+
+.card-nav-dots {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-nav-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.35);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-nav-dot:hover {
+  background: rgba(255, 255, 255, 0.75);
+}
+
+.card-nav-dot.active {
+  width: 20px;
+  border-radius: 999px;
+  background: #ffffff;
+}
+
+/* ===== RESPONSIVE BREAKPOINTS ===== */
+@media (max-width: 1200px) {
+  .card-content-grid {
+    grid-template-columns: 190px 1fr 200px;
+    gap: 24px;
+    padding: 60px 24px;
+  }
+
+  .card-poster-wrapper {
+    width: 380px;
+    height: 480px;
+  }
+}
+
+@media (max-width: 960px) {
+  .recent-works-header {
+    margin-bottom: -28px;
+  }
+
+  .recent-works-card {
+    min-height: auto;
+    border-radius: 24px;
+  }
+
+  .card-content-grid {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 48px 24px 60px;
+  }
+
+  .card-col-left {
+    min-height: auto;
+    gap: 24px;
+  }
+
+  .card-poster-wrapper {
+    width: 100%;
+    max-width: 420px;
+    height: 460px;
+  }
+
+  .card-col-right {
+    min-height: auto;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 24px;
+  }
+
+  .card-nav-controls {
+    bottom: 18px;
+    right: 20px;
+    padding: 6px 14px;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 600px) {
+  .recent-works-section {
+    padding: 60px 16px 80px;
+  }
+
+  .recent-works-display-title {
+    font-size: 56px;
+  }
+
+  .card-poster-wrapper {
+    height: 380px;
+  }
+
+  .card-brand-title {
+    font-size: 40px;
+  }
+
+  .card-nav-controls {
+    bottom: 16px;
+    right: 16px;
+  }
+}
