@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import './UserCursor.css'
 
-const UserCursor = ({ name = 'you', color = '#FFC700' }) => {
+const UserCursor = ({ name = 'You', color = '#FFC700' }) => {
   const [isClicking, setIsClicking] = useState(false)
   const [isHovering, setIsHovering] = useState(false)
   const [isTouch, setIsTouch] = useState(false)
