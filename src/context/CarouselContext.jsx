@@ -16,23 +16,25 @@ export const CarouselProvider = ({ children }) => {
       const worksEl = document.getElementById('works')
       const testimonialsEl = document.getElementById('testimonials')
 
-      if (!worksEl || !testimonialsEl) return
+      let worksInView = false
+      let testimonialsInView = false
 
-      const wRect = worksEl.getBoundingClientRect()
-      const tRect = testimonialsEl.getBoundingClientRect()
+      if (worksEl) {
+        const wRect = worksEl.getBoundingClientRect()
+        worksInView = wRect.top <= 120 && wRect.bottom > 80
+      }
 
-      // Each section is checked independently — they are no longer adjacent
-      // (MeetFounder / Behind the studio now sits between them)
-      const worksInView = wRect.top <= 120 && wRect.bottom > 80
-      const testimonialsInView =
-        tRect.top <= window.innerHeight * 0.45 && tRect.bottom > 80
+      if (testimonialsEl) {
+        const tRect = testimonialsEl.getBoundingClientRect()
+        testimonialsInView =
+          tRect.top <= window.innerHeight * 0.75 && tRect.bottom >= 120
+      }
 
       if (!worksInView && !testimonialsInView) {
         setActiveSection(null)
         return
       }
 
-      // Testimonials takes priority when both could overlap (shouldn't happen normally)
       if (testimonialsInView) {
         setActiveSection('testimonials')
       } else {

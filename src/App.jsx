@@ -10,7 +10,7 @@ function App() {
     <Router>
       <SmoothScroll>
         <Preloader />
-        <UserCursor name="Harsh Choudhary" color="#FFC700" />
+        <UserCursor name="you" color="#FFC700" />
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />

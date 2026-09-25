@@ -1,4 +1,4 @@
-import BlurText from './BlurText'
+﻿import BlurText from './BlurText'
 
 export const ROLES = ['UI UX Designer', 'CRO Designer', 'Product Designer']
 export const LONGEST_ROLE = ROLES.reduce((a, b) => (a.length > b.length ? a : b), '')
@@ -34,7 +34,6 @@ const HeroContent = ({
         />{' '}
         a{' '}
         <span className="purple hero-role-rotator">
-          {/* Sizer reserves maximum width so title position never shifts when role changes */}
           <span className="hero-role-sizer" aria-hidden="true">
             {LONGEST_ROLE}
           </span>
@@ -62,9 +61,30 @@ const HeroContent = ({
       </h1>
 
       <p className="hero-subtitle">
-        We make it easy for startups to launch, grow, and scale with clean,
-        conversion focused designs —no delays, no drama.
+        UI/UX Designer and CRO Specialist helping DTC e-commerce brands and product teams turn user friction into measurable growth.
       </p>
+
+      <div className="hero-kpi-row">
+        <div className="hero-kpi-card">
+          <span className="hero-kpi-num">40+</span>
+          <span className="hero-kpi-lbl">Brands Shipped</span>
+        </div>
+        <div className="hero-kpi-divider" />
+        <div className="hero-kpi-card">
+          <span className="hero-kpi-num">$500K+</span>
+          <span className="hero-kpi-lbl">Revenue Impact</span>
+        </div>
+        <div className="hero-kpi-divider" />
+        <div className="hero-kpi-card">
+          <span className="hero-kpi-num">500+</span>
+          <span className="hero-kpi-lbl">User Enterprise Systems</span>
+        </div>
+        <div className="hero-kpi-divider" />
+        <div className="hero-kpi-card">
+          <span className="hero-kpi-num">95%</span>
+          <span className="hero-kpi-lbl">Client Satisfaction</span>
+        </div>
+      </div>
     </div>
   )
 }

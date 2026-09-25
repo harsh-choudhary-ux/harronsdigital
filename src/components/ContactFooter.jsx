@@ -54,13 +54,11 @@ const ContactFooter = () => {
               </a>
 
               <a
-                href="https://behance.net"
-                target="_blank"
-                rel="noopener noreferrer"
+                href="mailto:Harshchoudhary.ux@gmail.com"
                 className="site-btn"
-                aria-label="Behance"
+                aria-label="Gmail"
               >
-                <span className="site-btn-text">Behance</span>
+                <span className="site-btn-text">Gmail</span>
                 <span className="site-btn-icon">
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
                     <path d="M3.5 10.5L10.5 3.5M10.5 3.5H4.5M10.5 3.5V9.5" stroke="#171717" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round"/>

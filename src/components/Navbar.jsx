@@ -61,11 +61,12 @@ const Navbar = () => {
 
           <div className="navbar-actions">
             <a
-              href="/resume.pdf"
+              href="/Harsh%20Choudhary%20CV.pdf"
               target="_blank"
               rel="noopener noreferrer"
               className="navbar-resume-btn"
               aria-label="Download Resume"
+              download="Harsh Choudhary CV.pdf"
             >
               <span className="resume-btn-text">RESUME</span>
               <span className="resume-btn-icon">
@@ -101,8 +102,16 @@ const Navbar = () => {
             <a href="#about" onClick={(e) => scrollToSection(e, 'about')}>About</a>
             <a href="#faq" onClick={(e) => scrollToSection(e, 'faq')}>FAQ</a>
             <a href="#contact" onClick={(e) => scrollToSection(e, 'contact')}>Contact</a>
-
-
+            <a
+              href="/Harsh%20Choudhary%20CV.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              download="Harsh Choudhary CV.pdf"
+              className="mobile-resume-link"
+              onClick={() => setMobileOpen(false)}
+            >
+              Resume ↓
+            </a>
           </motion.div>
         )}
       </AnimatePresence>

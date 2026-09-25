@@ -18,7 +18,7 @@
   position: relative;
   min-height: 100vh;
   min-height: 100svh;
-  padding: 120px 24px;
+  padding: 80px 24px;
   box-sizing: border-box;
   overflow: hidden;
   background: transparent;
@@ -33,11 +33,23 @@
   scroll-margin-top: 80px;
 }
 
+/* Two-column wrapper */
+.practice-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 80px;
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
 .practice-map {
   position: relative;
-  width: min(48rem, 66vw);
+  flex: 0 0 auto;
+  width: min(44rem, 50vw);
   aspect-ratio: 1.25;
-  margin: 0 auto;
+  margin: 0;
 }
 
 .orbit {
@@ -68,7 +80,7 @@
   margin: 0;
   transform: translate(-50%, -50%);
   font-family: var(--font-display);
-  font-size: clamp(2.4rem, 3.4vw, 3.8rem);
+  font-size: clamp(1.8rem, 2.4vw, 3rem);
   font-weight: 400;
   line-height: 1.02;
   letter-spacing: 0;
@@ -84,7 +96,7 @@
   border-radius: 50%;
   font-family: var(--font-display);
   color: oklch(0.99 0.005 100);
-  font-size: clamp(1.45rem, 2.1vw, 2.2rem);
+  font-size: clamp(0.9rem, 1.3vw, 1.5rem);
   line-height: .98;
   text-align: center;
   animation: drift 8s ease-in-out infinite;
@@ -193,9 +205,92 @@
   letter-spacing: 0.05em;
 }
 
+/* ===== NUMBERED LIST (LEFT SIDE) ===== */
+.practice-list {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  max-width: 560px;
+  min-width: 320px;
+}
+
+.practice-list-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.practice-list-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 28px;
+  padding: 36px 0;
+}
+
+.practice-list-num {
+  font-family: 'Clash Grotesk Variable', 'Clash Grotesk', sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  color: #AAAAAA;
+  letter-spacing: 0.06em;
+  padding-top: 4px;
+  flex-shrink: 0;
+  width: 44px;
+  white-space: nowrap;
+}
+
+.practice-list-text {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.practice-list-title {
+  font-family: 'Clash Grotesk Variable', 'Clash Grotesk', sans-serif;
+  font-size: 26px;
+  font-weight: 600;
+  color: #1A1A1A;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.practice-list-sub {
+  font-family: 'Clash Grotesk Variable', 'Clash Grotesk', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  color: #888888;
+  line-height: 1.5;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.practice-list-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(0,0,0,0.1);
+}
+
+@media (max-width: 900px) {
+  .practice-inner {
+    flex-direction: column;
+    gap: 40px;
+  }
+
+  .practice-map {
+    width: min(38rem, 80vw);
+  }
+
+  .practice-list {
+    max-width: 100%;
+    width: 100%;
+  }
+}
+
 @media (max-width: 700px) {
   .home-canvas.practice-section {
-    min-height: 90svh;
+    min-height: auto;
     padding: 60px 16px;
   }
 

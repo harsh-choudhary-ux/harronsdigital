@@ -416,6 +416,68 @@ body.hero-scaling-active .navbar-wrapper {
   margin-bottom: 0;
 }
 
+/* ===== HERO KPI ROW ===== */
+.hero-kpi-row {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-top: 28px;
+  background: none;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+}
+
+.hero-kpi-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 0 28px;
+}
+
+.hero-kpi-divider {
+  width: 1px;
+  height: 32px;
+  background: rgba(0,0,0,0.15);
+  flex-shrink: 0;
+}
+
+.hero-kpi-num {
+  font-family: 'Clash Grotesk Variable', 'Clash Grotesk', sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1;
+  color: #1A1A1A;
+  letter-spacing: -0.03em;
+}
+
+.hero-kpi-lbl {
+  font-family: 'Clash Grotesk Variable', 'Clash Grotesk', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: #777777;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+/* Ghost layer KPI overrides */
+.hero-layer-ghost .hero-kpi-row {
+  background: none;
+  border: none;
+}
+.hero-layer-ghost .hero-kpi-num {
+  color: #FFFFFF;
+}
+.hero-layer-ghost .hero-kpi-lbl {
+  color: rgba(255,255,255,0.7);
+}
+.hero-layer-ghost .hero-kpi-divider {
+  background: rgba(255,255,255,0.25);
+}
+
+
 /* ===== GHOST LAYER SPECIFIC COLOR & GLOW STYLES ===== */
 .hero-layer-ghost .hero-live-time {
   color: rgba(255, 255, 255, 0.9);
@@ -653,6 +715,25 @@ body.hero-scaling-active .navbar-wrapper {
     color: #6B7280;
     max-width: 380px;
     margin: 0 auto;
+  }
+
+  .hero-kpi-row {
+    padding: 0;
+    gap: 0;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .hero-kpi-card {
+    padding: 0 16px;
+  }
+
+  .hero-kpi-num {
+    font-size: 20px;
+  }
+
+  .hero-kpi-lbl {
+    font-size: 10px;
   }
 
   /* ===== CLOUD CONTAINMENT ON MOBILE ===== */

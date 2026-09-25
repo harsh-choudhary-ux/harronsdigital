@@ -28,12 +28,12 @@
 }
 
 .faq-section .section-eyebrow span {
-  color: #61C554;
+  color: var(--orange);
 }
 
 .faq-section .section-title {
-  color: #FFFFFF !important;
-  font-family: 'Clash Grotesk Variable', 'Clash Grotesk', sans-serif !important;
+  color: var(--white) !important;
+  font-family: var(--font) !important;
   font-size: clamp(32px, 4.5vw, var(--fs-heading));
   font-weight: 600;
   line-height: 1.12;
@@ -94,7 +94,7 @@
 .faq-item.open .faq-toggle-icon {
   transform: rotate(45deg);
   background: var(--orange);
-  color: #fff;
+  color: var(--white);
 }
 
 .faq-answer {

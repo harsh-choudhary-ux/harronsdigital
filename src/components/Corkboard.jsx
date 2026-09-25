@@ -16,13 +16,17 @@ const Corkboard = () => {
         </ScrollReveal>
 
         {/* The Dark Corkboard Graphic Card */}
-        <ScrollReveal delay={0.15}>
+        <ScrollReveal delay={0.1} direction="none">
           <div className="corkboard-card">
             <div className="corkboard-card-inner">
               <img
                 src="/images/corkboard.webp"
                 alt="Conspiracy Board - UX detective investigation with pinned newspapers and connected threads"
                 className="corkboard-img"
+                loading="eager"
+                decoding="async"
+                width="2400"
+                height="1530"
               />
             </div>
           </div>

@@ -1,12 +1,20 @@
-.meet-founder {
-  padding: 100px 40px;
+.meet-founder-section {
+  width: 100%;
+  background: #353535;
+  padding: 80px 40px 100px;
+  box-sizing: border-box;
+  scroll-margin-top: 80px;
+}
+
+.meet-founder-container {
   max-width: 1300px;
   margin: 0 auto;
+  width: 100%;
 }
 
 .founder-card {
   background: var(--dark);
-  color: #fff;
+  color: var(--white);
   border-radius: var(--radius-lg);
   overflow: hidden;
   display: grid;
@@ -17,7 +25,7 @@
 .founder-image-wrapper {
   position: relative;
   min-height: 480px;
-  background: #111;
+  background: var(--dark);
 }
 
 .founder-image-wrapper img {
@@ -67,7 +75,48 @@
   font-size: var(--fs-body);
   line-height: 1.7;
   color: rgba(255, 255, 255, 0.85);
-  margin-bottom: 40px;
+  margin-bottom: 32px;
+}
+
+/* ===== EXPERIENCE TIMELINE (MATCHING IMAGE 1) ===== */
+.founder-experience {
+  margin-bottom: 36px;
+}
+
+.founder-exp-divider {
+  width: 100%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.12);
+  margin-bottom: 20px;
+}
+
+.founder-exp-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.founder-exp-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.founder-exp-role {
+  font-family: var(--font) !important;
+  font-size: var(--fs-body);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.92);
+  letter-spacing: -0.01em;
+}
+
+.founder-exp-period {
+  font-family: var(--font) !important;
+  font-size: 14px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.55);
+  letter-spacing: 0.01em;
 }
 
 .founder-stats {
@@ -80,7 +129,7 @@
 }
 
 .founder-stat-item h4 {
-  font-size: 32px;
+  font-size: var(--fs-heading);  /* 42px — heading scale */
   font-weight: 800;
   color: var(--orange);
   line-height: 1;
@@ -88,7 +137,7 @@
 }
 
 .founder-stat-item p {
-  font-size: 13px;
+  font-size: 14px;  /* label scale */
   color: rgba(255, 255, 255, 0.6);
 }
 
@@ -101,7 +150,7 @@
 .founder-social-link {
   font-size: 14px;
   font-weight: 600;
-  color: #fff;
+  color: var(--white);
   text-decoration: none;
   opacity: 0.7;
   transition: opacity 0.2s ease, color 0.2s ease;
@@ -122,7 +171,7 @@
   .founder-image-wrapper {
     min-height: 380px;
   }
-  .meet-founder {
+  .meet-founder-section {
     padding: 60px 20px;
   }
   .founder-stats {

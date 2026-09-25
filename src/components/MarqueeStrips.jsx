@@ -1,13 +1,14 @@
 import './MarqueeStrips.css'
 
 const marqueeItems = [
-  'WEBSITE DESIGN',
-  'UI/UX STRATEGY',
-  'PRODUCT DESIGN',
-  'INTERACTION DESIGN',
-  'BRAND IDENTITY',
-  'CONVERSION DESIGN',
-  'SYSTEM ARCHITECTURE',
+  '40+ DTC BRANDS',
+  '$500K+ REVENUE IMPACT',
+  '60% FASTER PAYROLL',
+  '+18% AOV',
+  '−15% CART ABANDONMENT',
+  '+22% CHECKOUT COMPLETION',
+  '95% CLIENT SATISFACTION',
+  '500+ USER HRMS',
 ]
 
 const MarqueeStrips = () => {

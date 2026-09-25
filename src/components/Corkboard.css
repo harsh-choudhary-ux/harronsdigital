@@ -70,6 +70,8 @@
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
   border: 1px solid rgba(255, 255, 255, 0.12);
   transition: transform 0.4s cubic-bezier(0.2, 0, 0.2, 1), box-shadow 0.4s ease;
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 .corkboard-card:hover {
@@ -84,6 +86,7 @@
   justify-content: center;
   background: #0E0E0E;
   overflow: hidden;
+  transform: translateZ(0);
 }
 
 .corkboard-img {
@@ -92,6 +95,7 @@
   display: block;
   object-fit: contain;
   transition: transform 0.6s cubic-bezier(0.2, 0, 0.2, 1);
+  will-change: transform;
 }
 
 .corkboard-card:hover .corkboard-img {

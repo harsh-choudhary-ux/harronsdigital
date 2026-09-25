@@ -59,6 +59,8 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Clash Grotesk Variable', 'Clash Grotesk', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  user-select: none;
+  -webkit-user-select: none;
 }
 
 html {
