@@ -29,7 +29,7 @@ const servicesData = [
   {
     id: 'kenzen',
     label: 'Kanzen Skincare — CRO Design',
-    image: '/images/Frame 1484580597.png',
+    image: '/images/kanzen-skincare.webp',
     description: "CRO-focused redesign for the UK's #1 skincare brand. Rebuilt the product detail page, checkout flow, and trust architecture to reduce friction and increase conversion — backed by heatmap analysis, A/B testing, and copy psychology.",
     tags: ['CRO Strategy', 'Shopify Design', 'A/B Testing', 'Copy Optimization'],
     figmaUrl: 'https://www.figma.com/design/XdUggKf6H2gkr3I77JCTmn/Kanzen-Skincare-Website---UK--1-Skin-Care-Brand--?node-id=0-1&t=bIFPkbT4dYnOu30B-1',
@@ -38,7 +38,7 @@ const servicesData = [
 
 const ServicesSection = () => {
   return (
-    <section className="services-section" id="services">
+    <section className="services-section" id="works">
       <div className="services-container">
         {/* Header */}
         <ScrollReveal>
