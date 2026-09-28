@@ -11,7 +11,6 @@ import BlogInsights from '../components/BlogInsights'
 import FAQ from '../components/FAQ'
 import ContactFooter from '../components/ContactFooter'
 import { CarouselProvider } from '../context/CarouselContext'
-import FloatingCarouselNav from '../components/FloatingCarouselNav'
 
 const Home = () => {
   return (
@@ -29,7 +28,6 @@ const Home = () => {
         <BlogInsights />
         <FAQ />
         <ContactFooter />
-        <FloatingCarouselNav />
       </main>
     </CarouselProvider>
   )

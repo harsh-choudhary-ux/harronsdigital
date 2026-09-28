@@ -30,16 +30,20 @@ const MeetFounder = () => {
                       <span className="founder-exp-role">Founder at Harrons</span>
                     </div>
                     <div className="founder-exp-item">
-                      <span className="founder-exp-role">CRO Design Lead at Open Limits</span>
+                      <span className="founder-exp-role">CRO Designer at Open Limits</span>
+                      <span className="founder-exp-period">2026 – Now</span>
                     </div>
                     <div className="founder-exp-item">
                       <span className="founder-exp-role">Product Designer at Cybrom Technology</span>
+                      <span className="founder-exp-period">2025 – 2026</span>
                     </div>
                     <div className="founder-exp-item">
                       <span className="founder-exp-role">UI/UX Designer at Practice Paper</span>
+                      <span className="founder-exp-period">2024 – 2025</span>
                     </div>
                     <div className="founder-exp-item">
                       <span className="founder-exp-role">Frontend Designer at Skills Pinnacle</span>
+                      <span className="founder-exp-period">2022 – 2023</span>
                     </div>
                   </div>
                 </div>

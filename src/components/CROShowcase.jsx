@@ -1,7 +1,85 @@
+import { useState, useRef } from 'react'
 import ScrollReveal from './ScrollReveal'
 import './CROShowcase.css'
 
 const CROShowcase = () => {
+  const [modalOpen, setModalOpen] = useState(false)
+  const [impression, setImpression] = useState('')
+  const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [feedback, setFeedback] = useState('')
+  const [email, setEmail] = useState('')
+  const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState('')
+  const [wordError, setWordError] = useState(false)
+  const dropdownRef = useRef(null)
+
+  const countWords = (text) => text.trim().split(/\s+/).filter(Boolean).length
+
+  const handleFeedbackChange = (e) => {
+    const val = e.target.value
+    const words = countWords(val)
+    if (words <= 200) {
+      setFeedback(val)
+      setWordError(false)
+    } else {
+      setWordError(true)
+    }
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    if (!impression || submitting) return
+
+    setSubmitting(true)
+    setSubmitError('')
+
+    try {
+      const response = await fetch('https://formspree.io/f/xbglqgkv', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          form: 'CRO Design Feedback',
+          impression: IMPRESSIONS.find(i => i.value === impression)?.label || impression,
+          thoughts: feedback || '(No comments provided)',
+          email: email || '(No email provided)'
+        })
+      })
+
+      if (response.ok) {
+        setSubmitted(true)
+      } else {
+        const data = await response.json().catch(() => ({}))
+        setSubmitError(data?.errors?.[0]?.message || 'Failed to submit. Please try again.')
+      }
+    } catch (err) {
+      setSubmitError('Unable to send. Please check your internet connection.')
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
+  const handleClose = () => {
+    setModalOpen(false)
+    setSubmitted(false)
+    setSubmitting(false)
+    setSubmitError('')
+    setImpression('')
+    setFeedback('')
+    setEmail('')
+    setWordError(false)
+    setDropdownOpen(false)
+  }
+
+  const IMPRESSIONS = [
+    { value: 'love', emoji: '❤️', label: 'Love it' },
+    { value: 'okay', emoji: '😐', label: "It's okay" },
+    { value: 'needs-work', emoji: '🔧', label: 'Needs work' },
+  ]
+
   return (
     <section className="cro-showcase-section" id="cro">
       <div className="cro-showcase-container">
@@ -62,6 +140,15 @@ const CROShowcase = () => {
                   />
                 </div>
               </div>
+
+              {/* ─── FEEDBACK BUTTON ─── */}
+              <button
+                id="cro-feedback-btn"
+                className="cro-feedback-btn"
+                onClick={() => setModalOpen(true)}
+              >
+                <span className="cro-feedback-btn-text">Does this design work?</span>
+              </button>
             </div>
 
             {/* ─── RIGHT: WHAT I USED ─── */}
@@ -71,15 +158,14 @@ const CROShowcase = () => {
                 <div className="cro-method-item">
                   <h4 className="cro-method-name">Hotjar heatmaps</h4>
                   <p className="cro-method-desc">
-                    Found: 40% of users never scrolled past hero →<br />
-                    Moved primary CTA above the fold
+                    Found: 23% of mobile users never scrolled past the product image →<br />
+                    Compacted the title and price area so key purchase info appears sooner
                   </p>
                 </div>
                 <div className="cro-method-item">
                   <h4 className="cro-method-name">A/B Testing</h4>
                   <p className="cro-method-desc">
-                    Found: CTA color blended into brand palette →<br />
-                    High-contrast variant, ran to stat. significance before shipping
+                    Tested: Original page vs. a variant with the sale price and strikethrough, a low-stock urgency label, a size guide link and a short product description
                   </p>
                 </div>
                 <div className="cro-method-item">
@@ -102,8 +188,120 @@ const CROShowcase = () => {
           </div>
         </ScrollReveal>
       </div>
+
+      {/* ─── FEEDBACK MODAL ─── */}
+      {modalOpen && (
+        <div className="cro-modal-overlay" onClick={handleClose}>
+          <div className="cro-modal" onClick={(e) => e.stopPropagation()}>
+            <button className="cro-modal-close" onClick={handleClose} aria-label="Close">✕</button>
+
+            {!submitted ? (
+              <>
+                <h2 className="cro-modal-title">Suggest a feedback</h2>
+                <p className="cro-modal-subtitle">Share your honest take on this design.</p>
+
+                <form className="cro-modal-form" onSubmit={handleSubmit}>
+
+                  {/* Custom Dropdown */}
+                  <div className="cro-form-group">
+                    <label className="cro-form-label">Overall impression</label>
+                    <div className="cro-custom-select" ref={dropdownRef}>
+                      <button
+                        type="button"
+                        className={`cro-select-trigger${dropdownOpen ? ' open' : ''}`}
+                        onClick={() => setDropdownOpen(!dropdownOpen)}
+                      >
+                        <span className="cro-select-value">
+                          {impression
+                            ? <>{IMPRESSIONS.find(i => i.value === impression)?.emoji} {IMPRESSIONS.find(i => i.value === impression)?.label}</>
+                            : <span className="cro-select-placeholder">Select your impression…</span>
+                          }
+                        </span>
+                        <span className={`cro-select-chevron${dropdownOpen ? ' up' : ''}`}>
+                          <svg width="12" height="8" viewBox="0 0 12 8" fill="none">
+                            <path d="M1 1l5 5 5-5" stroke="#888" strokeWidth="1.5" strokeLinecap="round"/>
+                          </svg>
+                        </span>
+                      </button>
+                      {dropdownOpen && (
+                        <div className="cro-select-dropdown">
+                          {IMPRESSIONS.map(opt => (
+                            <button
+                              key={opt.value}
+                              type="button"
+                              className={`cro-select-option${impression === opt.value ? ' selected' : ''}`}
+                              onClick={() => { setImpression(opt.value); setDropdownOpen(false) }}
+                            >
+                              <span className="cro-option-emoji">{opt.emoji}</span>
+                              <span>{opt.label}</span>
+                            </button>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Textarea */}
+                  <div className="cro-form-group">
+                    <label className="cro-form-label" htmlFor="cro-feedback-text">
+                      Your thoughts
+                      <span className="cro-word-count">{countWords(feedback)} / 200 words</span>
+                    </label>
+                    <textarea
+                      id="cro-feedback-text"
+                      className={`cro-form-textarea${wordError ? ' cro-textarea--error' : ''}`}
+                      placeholder="Tell me what works, what doesn't, and why…"
+                      value={feedback}
+                      onChange={handleFeedbackChange}
+                      rows={4}
+                    />
+                    {wordError && <p className="cro-error-msg">Maximum 200 words reached.</p>}
+                  </div>
+
+                  {/* Email / Let's Connect */}
+                  <div className="cro-form-group">
+                    <label className="cro-form-label" htmlFor="cro-connect-email">Let's connect <span className="cro-optional">(optional)</span></label>
+                    <input
+                      id="cro-connect-email"
+                      type="email"
+                      className="cro-email-input"
+                      placeholder="your@email.com"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      autoComplete="email"
+                    />
+                  </div>
+
+                  {submitError && (
+                    <p className="cro-error-msg" style={{ marginBottom: '12px', textAlign: 'center' }}>
+                      {submitError}
+                    </p>
+                  )}
+
+                  <button
+                    type="submit"
+                    id="cro-submit-feedback"
+                    className="cro-modal-submit"
+                    disabled={!impression || submitting}
+                  >
+                    {submitting ? 'Submitting…' : 'Submit feedback'}
+                  </button>
+                </form>
+              </>
+            ) : (
+              <div className="cro-modal-success">
+                <div className="cro-success-icon">✓</div>
+                <h2 className="cro-modal-title">Thanks for your feedback!</h2>
+                <p className="cro-modal-subtitle">Your input helps me improve this design.</p>
+                <button className="cro-modal-submit" onClick={handleClose}>Close</button>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </section>
   )
 }
 
 export default CROShowcase
+

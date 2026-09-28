@@ -67,9 +67,7 @@
   border-top: 1px solid rgba(0,0,0,0.1);
 }
 
-.service-row:last-child {
-  border-bottom: 1px solid rgba(0,0,0,0.1);
-}
+/* no bottom border on last item */
 
 .service-row-inner {
   display: grid;

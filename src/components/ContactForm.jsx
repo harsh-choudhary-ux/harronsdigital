@@ -19,6 +19,8 @@ const ContactForm = () => {
   })
   const [dropdownOpen, setDropdownOpen] = useState(false)
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
+  const [submitError, setSubmitError] = useState('')
   const dropdownRef = useRef(null)
 
   useEffect(() => {
@@ -40,10 +42,47 @@ const ContactForm = () => {
     setDropdownOpen(false)
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    setSubmitted(true)
-    setTimeout(() => setSubmitted(false), 5000)
+    if (submitting) return
+
+    setSubmitting(true)
+    setSubmitError('')
+
+    try {
+      const response = await fetch('https://formspree.io/f/xbglqgkv', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({
+          form: 'Project Inquiry',
+          name: formData.name,
+          email: formData.email,
+          budget: formData.budget,
+          message: formData.message,
+        }),
+      })
+
+      if (response.ok) {
+        setSubmitted(true)
+        setFormData({
+          name: '',
+          email: '',
+          budget: '$5k - $10k',
+          message: '',
+        })
+        setTimeout(() => setSubmitted(false), 6000)
+      } else {
+        const data = await response.json().catch(() => ({}))
+        setSubmitError(data?.errors?.[0]?.message || 'Failed to send message. Please try again.')
+      }
+    } catch (err) {
+      setSubmitError('Unable to send. Please check your internet connection.')
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   return (
@@ -189,9 +228,19 @@ const ContactForm = () => {
                   />
                 </div>
 
-                <button type="submit" className="form-submit-btn site-btn">
+                {submitError && (
+                  <p style={{ color: '#ef4444', fontSize: '13px', marginBottom: '12px' }}>
+                    {submitError}
+                  </p>
+                )}
+
+                <button
+                  type="submit"
+                  className="form-submit-btn site-btn"
+                  disabled={submitting}
+                >
                   <span className="site-btn-text">
-                    {submitted ? 'Inquiry Received! ✓' : 'Send Message'}
+                    {submitting ? 'Sending…' : submitted ? 'Inquiry Received! ✓' : 'Send Message'}
                   </span>
                   <span className="site-btn-icon">
                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
