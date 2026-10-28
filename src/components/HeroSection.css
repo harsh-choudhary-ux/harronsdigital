@@ -206,7 +206,7 @@
   justify-content: center;
   text-align: center;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1424px;
   will-change: transform, opacity;
 }
 
@@ -329,9 +329,19 @@ body.hero-scaling-active .navbar-wrapper {
   line-height: 1.5; /* 150% */
   letter-spacing: 0; /* 0% */
   color: var(--text-primary);
-  max-width: 1200px;
+  max-width: 1424px;
   margin-bottom: 32px;
   user-select: none;
+}
+
+.hero-headline-line {
+  display: inline;
+}
+
+@media (min-width: 769px) {
+  .hero-headline-line {
+    white-space: nowrap;
+  }
 }
 
 .hero-headline .purple {
